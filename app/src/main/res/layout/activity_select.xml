@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/but_climate"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape"
+            android:text="景气指数"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/but_leasehold"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape1"
+            android:text="租赁指数"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/but_environmental"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape2"
+            android:text="环境指数"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/but_human"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape3"
+            android:text="人力指数"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/but_innovation"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape4"
+            android:text="创新指数"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

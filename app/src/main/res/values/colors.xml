@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="orange">#e08886</color>
+    <color name="purple">#a663a6</color>
+    <color name="light_blue">#86d9e0</color>
+    <color name="depth_blue">#686fba</color>
+    <color name="pink">#db66ae</color>
+    <color name="backgroundColor">#274a61</color>
+    <color name="tab_selected">#DFE4D8</color>
+    <color name="tab_selected_background">#627593</color>
+    <color name="tab_default">#AAB7AF</color>
+</resources>

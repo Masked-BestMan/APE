@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NewBusinessMonitor</string>
+    <string name="activity_environment_title_name">环境指数</string>
+    <string name="activity_boom_title_name">景气指数</string>
+    <string name="activity_power_title_name">人力指数</string>
+    <string name="activity_login_title_name">Welcome</string>
+    <string name="activity_login_account_hint">请输入账户名</string>
+    <string name="activity_login_password_hint">请输入密码</string>
+    <string name="activity_login_button_title">登陆</string>
+</resources>

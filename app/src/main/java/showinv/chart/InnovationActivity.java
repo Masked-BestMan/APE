@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,13 +18,11 @@ import businessmonitor.com.example.newbusinessmonitor.MarketDataBean;
 import businessmonitor.com.example.newbusinessmonitor.R;
 import businessmonitor.com.example.newbusinessmonitor.MyFragmentAdapter;
 import businessmonitor.com.example.newbusinessmonitor.UserInfoBean;
-import showevn.chart.EnvironmentFragment;
 
 public class InnovationActivity extends AppCompatActivity implements IChartView{
     private ArrayList<AbstractDataBean> userList;    //该列表保存了该用户所能查看的商会信息
     private DataAgent dataAgent;
     private ViewPager viewPager;
-    private Button backbutton;
     private int market_id;   //选中的商会id
     private TabLayout tabLayout;
     private final String[] indexTitle={"商铺注册商标的数量","电商数量变化趋势","各行业定制化商品平均比率"};
@@ -41,8 +38,8 @@ public class InnovationActivity extends AppCompatActivity implements IChartView{
         market_id=((UserInfoBean)userList.get(0)).getMarket_id();  //默认选中第一个商会
         tabLayout = (TabLayout) findViewById(R.id.innovation_tab_layout);
         viewPager = (ViewPager) findViewById(R.id.viewpager_innovation);
-        backbutton = (Button)findViewById(R.id.backbutton);
-        backbutton.setOnClickListener(new View.OnClickListener() {
+        Button backButton = (Button) findViewById(R.id.backbutton);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

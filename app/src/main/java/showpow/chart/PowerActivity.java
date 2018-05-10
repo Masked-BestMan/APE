@@ -1,15 +1,12 @@
 package showpow.chart;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -21,7 +18,6 @@ import businessmonitor.com.example.newbusinessmonitor.MarketDataBean;
 import businessmonitor.com.example.newbusinessmonitor.R;
 import businessmonitor.com.example.newbusinessmonitor.MyFragmentAdapter;
 import businessmonitor.com.example.newbusinessmonitor.UserInfoBean;
-import showlea.chart.LeaseHoldFragment;
 
 public class PowerActivity extends AppCompatActivity implements IChartView{
     private ArrayList<AbstractDataBean> userList;    //该列表保存了该用户所能查看的商会信息
@@ -43,7 +39,13 @@ public class PowerActivity extends AppCompatActivity implements IChartView{
         market_id=((UserInfoBean)userList.get(0)).getMarket_id();  //默认选中第一个商会
         viewPager = (ViewPager) findViewById(R.id.power_viewpager);
         tabLayout = (TabLayout) findViewById(R.id.power_tab_layout);
-
+        Button backButton = (Button) findViewById(R.id.backbutton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initFragment();
         dataAgent=new DataAgent(this,this);
         dataAgent.requestData(DBUtil.TABLE2,"select * from "+ DBUtil.TABLE2+" where market_id="+market_id+" order by month asc");

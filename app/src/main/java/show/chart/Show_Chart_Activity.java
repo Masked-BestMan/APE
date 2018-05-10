@@ -28,7 +28,6 @@ import businessmonitor.com.example.newbusinessmonitor.SyntheticIndexBean;
 public class Show_Chart_Activity extends AppCompatActivity implements IChartView{
 
     private ViewPager viewPager;
-    private Button backbutton;
     private MyFragmentAdapter myAdapter;
     private DataAgent dataAgent;
     private ArrayList<Fragment> list;
@@ -40,9 +39,9 @@ public class Show_Chart_Activity extends AppCompatActivity implements IChartView
         setContentView(R.layout.activity_show__chart);
         tabLayout = (TabLayout) findViewById(R.id.boom_tab_layout);
         viewPager = (ViewPager)findViewById(R.id.viewpager_boom);
-        backbutton = (Button)findViewById(R.id.backbutton);
+        Button backButton = (Button) findViewById(R.id.backbutton);
 
-        backbutton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

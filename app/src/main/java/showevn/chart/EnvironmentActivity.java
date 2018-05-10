@@ -15,10 +15,8 @@ import businessmonitor.com.example.newbusinessmonitor.UserInfoBean;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -26,8 +24,6 @@ public class EnvironmentActivity extends AppCompatActivity implements IChartView
     private ArrayList<AbstractDataBean> userList;    //该列表保存了该用户所能查看的商会信息
     private DataAgent dataAgent;
     private ViewPager viewPager;
-    private TextView index;
-    private Button backbutton;
     private int market_id;   //选中的商会id
     private TabLayout tabLayout;
     private final String[] indexTitle={"保安人数","人流量","餐厅翻台率"};
@@ -42,15 +38,13 @@ public class EnvironmentActivity extends AppCompatActivity implements IChartView
         market_id=((UserInfoBean)userList.get(0)).getMarket_id();  //默认选中第一个商会
         tabLayout = (TabLayout) findViewById(R.id.enviroment_tab_layout);
         viewPager = (ViewPager) findViewById(R.id.viewpager_environment);
-        backbutton = (Button)findViewById(R.id.backbutton);
-        backbutton.setOnClickListener(new View.OnClickListener() {
+        Button backButton = (Button) findViewById(R.id.backbutton);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        index=(TextView) findViewById(R.id.environment_label);
-        index.setText(indexTitle[0]);
         initFragment();
         dataAgent=new DataAgent(this,this);
         dataAgent.requestData(DBUtil.TABLE2,"select * from "+ DBUtil.TABLE2+" where market_id="+market_id+" order by month asc");
@@ -62,22 +56,6 @@ public class EnvironmentActivity extends AppCompatActivity implements IChartView
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                index.setText(indexTitle[position]);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     @Override
@@ -98,7 +76,6 @@ public class EnvironmentActivity extends AppCompatActivity implements IChartView
         list.add(b);
         list.add(c);
         adapter.notifyDataSetChanged();
-        Log.d("Environment","收到："+((MarketDataBean)info.get(0)).toString());
     }
 
     @Override

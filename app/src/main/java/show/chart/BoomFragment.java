@@ -69,7 +69,7 @@ public class BoomFragment extends Fragment{
         //设置chart网线的宽度
         mRadarChart.setWebLineWidth(2f);
         //设置chart是否可以触摸
-        mRadarChart.setTouchEnabled(true);
+        mRadarChart.setTouchEnabled(false);
         //设置chart动画
         mRadarChart.animateXY(1000,1000);
 

@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@drawable/bcc"
     tools:context="showlea.chart.LeaseHoldActivity">
 
     <RelativeLayout
@@ -35,8 +35,8 @@
 
         <Button
             android:id="@+id/market_list_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="15dp"

@@ -4,16 +4,8 @@
     android:layout_height="match_parent"
     android:paddingStart="30dp"
     android:paddingEnd="30dp"
-    android:background="@color/backgroundColor"><!--android:background="#274a61"-->
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/activity_login_title_name"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:layout_above="@+id/login_account"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:layout_marginBottom="40dp"-->
-        <!--android:textSize="50sp"/>-->
+    android:background="@drawable/bcc">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="150dp"

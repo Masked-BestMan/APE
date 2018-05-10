@@ -1,5 +1,6 @@
 package show.chart;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -31,11 +32,13 @@ public class Show_Chart_Activity extends AppCompatActivity implements IChartView
     private MyFragmentAdapter myAdapter;
     private DataAgent dataAgent;
     private ArrayList<Fragment> list;
+    private TabLayout tabLayout;
+    private final String[] indexTitle={"景气指数","合成指数"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show__chart);
-
+        tabLayout = (TabLayout) findViewById(R.id.boom_tab_layout);
         viewPager = (ViewPager)findViewById(R.id.viewpager_boom);
         backbutton = (Button)findViewById(R.id.backbutton);
 
@@ -53,9 +56,10 @@ public class Show_Chart_Activity extends AppCompatActivity implements IChartView
     private void iniViewPager() {
         list = new ArrayList<>();
         //Fragment 列表
-        myAdapter = new MyFragmentAdapter(getSupportFragmentManager(), list,null);
+        myAdapter = new MyFragmentAdapter(getSupportFragmentManager(), list,indexTitle);
         viewPager.setAdapter(myAdapter);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(2);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -75,6 +79,7 @@ public class Show_Chart_Activity extends AppCompatActivity implements IChartView
                 month++;
             }
             list.add(new BoomFragment(index_data));
+            dataAgent.requestData(DBUtil.TABLE3,"select * from "+ DBUtil.TABLE3+" order by month_index asc");
         }else if (info.get(0) instanceof SyntheticIndexBean){
             float[][] index_data=new float[12][3];
             int month=0;

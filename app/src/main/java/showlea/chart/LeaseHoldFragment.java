@@ -52,7 +52,7 @@ public class LeaseHoldFragment extends Fragment{
         return view;
     }
     private void initChart() {
-        leaseHold_barChart.setDrawBorders(true);
+        leaseHold_barChart.setDrawBorders(false);
         leaseHold_barChart.setBorderColor(Color.WHITE);
         leaseHold_barChart.getLegend().setEnabled(false);  //不显示标签
         leaseHold_barChart.getDescription().setEnabled(false);

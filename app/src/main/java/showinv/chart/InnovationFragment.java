@@ -64,7 +64,7 @@ public class InnovationFragment extends Fragment{
         //设置没有数据时显示的文本
         mLineChart.setNoDataText("没有数据喔~~");
         //设置是否绘制chart边框的线
-        mLineChart.setDrawBorders(true);
+        mLineChart.setDrawBorders(false);
         //设置chart边框线颜色
         mLineChart.setBorderColor(Color.WHITE);
         //设置chart边框线宽度
@@ -82,6 +82,7 @@ public class InnovationFragment extends Fragment{
 
         //=========================设置图例=========================
         Legend legend = mLineChart.getLegend();
+        legend.setEnabled(false);
         //设置图例显示在chart那个位置 setPosition建议放弃使用了
         //设置垂直方向上还是下或中
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -100,9 +101,9 @@ public class InnovationFragment extends Fragment{
         //是否启用X轴
         xAxis.setEnabled(true);
         //是否绘制X轴线
-        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawAxisLine(false);
         //设置X轴上每个竖线是否显示
-        xAxis.setDrawGridLines(true);
+        xAxis.setDrawGridLines(false);
         //设置是否绘制X轴上的对应值(标签)
         xAxis.setDrawLabels(true);
         //设置X轴显示位置
@@ -130,7 +131,7 @@ public class InnovationFragment extends Fragment{
         axisLeft.setEnabled(true);
         //设置最小值（这里就按demo里固死的写）
         axisLeft.setAxisMinimum(0);
-
+        axisLeft.setDrawGridLines(true);
         //设置横向的线为虚线
         axisLeft.enableGridDashedLine(10f, 10f, 0f);
         //设置y轴颜色

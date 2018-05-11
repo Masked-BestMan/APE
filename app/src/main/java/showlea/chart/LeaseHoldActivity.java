@@ -7,8 +7,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,13 +22,14 @@ import businessmonitor.com.example.newbusinessmonitor.MarketDataBean;
 import businessmonitor.com.example.newbusinessmonitor.MyFragmentAdapter;
 import businessmonitor.com.example.newbusinessmonitor.R;
 import businessmonitor.com.example.newbusinessmonitor.UserInfoBean;
+import market.list.ChooseMarketFragment;
 
 public class LeaseHoldActivity extends AppCompatActivity implements IChartView{
     private ArrayList<AbstractDataBean> userList;    //该列表保存了该用户所能查看的商会信息
     private DataAgent dataAgent;
     private ViewPager viewPager;
-    private Button navButton;
     private int market_id;   //选中的商会id
+    private String market_name;   //选中的商会名
     private MyFragmentAdapter adapter;
     private ArrayList<Fragment> list;
     private final String[] indexTitle={"租金","入驻率","商铺管理费","商铺转手费"};
@@ -39,7 +42,10 @@ public class LeaseHoldActivity extends AppCompatActivity implements IChartView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lease_hold);
         userList= (ArrayList<AbstractDataBean>) getIntent().getSerializableExtra("user_market_list");
+
         market_id=((UserInfoBean)userList.get(0)).getMarket_id();  //默认选中第一个商会
+        market_name=((UserInfoBean)userList.get(0)).getMarket_name();
+
         viewPager = (ViewPager)findViewById(R.id.viewpager_leasthold);
         tabLayout = (TabLayout) findViewById(R.id.lease_tab_layout);
         Button backButton = (Button) findViewById(R.id.backbutton);
@@ -50,16 +56,39 @@ public class LeaseHoldActivity extends AppCompatActivity implements IChartView{
             }
         });
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        navButton = (Button)findViewById(R.id.market_list_button);
+        Button navButton = (Button) findViewById(R.id.market_list_button);
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.END);
             }
         });
+        ChooseMarketFragment chooseMarketFragment = (ChooseMarketFragment) getSupportFragmentManager().findFragmentById(R.id.choose_market_fragment);
+        chooseMarketFragment.setOnMarketListSelectedListener(new ChooseMarketFragment.OnMarketListSelectedListener() {
+            @Override
+            public void onSelected(int position) {
+                drawerLayout.closeDrawer(GravityCompat.END);
+                //判断用户是否有权限查看选中商会的租赁指数
+                if (((UserInfoBean)userList.get(position)).getPermissions()[4]){
+                    list.clear();  //将fragment列表清空防止重复
+                    market_id=((UserInfoBean)userList.get(position)).getMarket_id();
+                    market_name=((UserInfoBean)userList.get(position)).getMarket_name();
+                    Log.d("Lease","用户Id："+market_id);
+                    dataAgent.requestData(DBUtil.TABLE2,"select * from "+ DBUtil.TABLE2+" where market_id="+market_id+" order by month asc");
+                }else{
+                    Toast.makeText(LeaseHoldActivity.this,"无权限查看",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        chooseMarketFragment.loadMarket(userList);
         initFragment();
         dataAgent=new DataAgent(this,this);
-        dataAgent.requestData(DBUtil.TABLE2,"select * from "+ DBUtil.TABLE2+" where market_id="+market_id+" order by month asc");
+
+        //判断用户是否有权限查看第一个商会的租赁指数
+        if (((UserInfoBean)userList.get(0)).getPermissions()[4]){
+            dataAgent.requestData(DBUtil.TABLE2,"select * from "+ DBUtil.TABLE2+" where market_id="+market_id+" order by month asc");
+        }
+
     }
 
     private void initFragment(){
@@ -74,6 +103,7 @@ public class LeaseHoldActivity extends AppCompatActivity implements IChartView{
 
     @Override
     public void onInfoUpdate(ArrayList<AbstractDataBean> info) {
+        Log.d("Lease","更新"+info.toString());
         float[] rent=new float[info.size()];
         float[] admission_rate=new float[info.size()];
         float[] management_fee=new float[info.size()];
@@ -86,10 +116,10 @@ public class LeaseHoldActivity extends AppCompatActivity implements IChartView{
         }
 
         list.clear();
-        list.add(new LeaseHoldFragment(rent));
-        list.add(new LeaseHoldFragment(admission_rate));
-        list.add(new LeaseHoldFragment(management_fee));
-        list.add(new LeaseHoldFragment(transfer_fee));
+        list.add(new LeaseHoldFragment(market_name,rent));
+        list.add(new LeaseHoldFragment(market_name,admission_rate));
+        list.add(new LeaseHoldFragment(market_name,management_fee));
+        list.add(new LeaseHoldFragment(market_name,transfer_fee));
         adapter.notifyDataSetChanged();
     }
 

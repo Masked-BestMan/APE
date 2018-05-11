@@ -15,9 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
+import UtilBean.CacheUtil;
 import UtilBean.DBUtil;
 
 public class LoginActivity extends AppCompatActivity {
@@ -44,10 +44,10 @@ public class LoginActivity extends AppCompatActivity {
                 String p = String.valueOf(password.getText());
                 if (a.equals("") || p.equals("")) {
                     Toast.makeText(LoginActivity.this, "账户或密码不能为空!", Toast.LENGTH_SHORT).show();
-                } else {
-//                    Intent intent = new Intent(LoginActivity.this, Select_Activity.class);
-//                    startActivity(intent);
-//                    LoginActivity.this.finish();
+                } else if (!CacheUtil.isNetworkAvailable(LoginActivity.this)) {
+                    Toast.makeText(LoginActivity.this, "请检查网络!", Toast.LENGTH_SHORT).show();
+                }else{
+
                     if (manager != null && isSoftInputMethodShowing(LoginActivity.this)) {
                         manager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     }

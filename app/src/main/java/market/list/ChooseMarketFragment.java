@@ -7,13 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import businessmonitor.com.example.newbusinessmonitor.AbstractDataBean;
 import businessmonitor.com.example.newbusinessmonitor.MarketAdapter;
-import businessmonitor.com.example.newbusinessmonitor.MarketBean;
 import businessmonitor.com.example.newbusinessmonitor.R;
 
 /**
@@ -24,15 +23,14 @@ public class ChooseMarketFragment extends Fragment {
 
     private ListView listView;
     private MarketAdapter marketAdapter;
-    private TextView titlename;
-    private List<MarketBean> marketlist=new ArrayList<>();
+    private List<AbstractDataBean> marketList=new ArrayList<>();
+    private OnMarketListSelectedListener onMarketListSelectedListener;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.choose_market,container,false);
         listView = (ListView)view.findViewById(R.id.market_list_view);
-        titlename = (TextView)view.findViewById(R.id.title_market_text) ;
-        marketAdapter = new MarketAdapter(getContext(),R.layout.market_item,marketlist);
+        marketAdapter = new MarketAdapter(getContext(),R.layout.market_item,marketList);
         listView.setAdapter(marketAdapter);
         return view;
     }
@@ -43,29 +41,21 @@ public class ChooseMarketFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //添加Item响应事件
-                titlename.setText(marketlist.get(position).getMarket_name());
+                onMarketListSelectedListener.onSelected(position);
             }
         });
-
-        queryMarket();
     }
 
-    private void queryMarket() {
-        titlename.setText("请选择您要查看的商会");
-        marketlist.add(new MarketBean(1,"白云皮具城"));
-        marketlist.add(new MarketBean(2,"广东芳村茶叶城"));
-        marketlist.add(new MarketBean(3,"广州国际轻纺城"));
-        marketlist.add(new MarketBean(4,"广州眼镜城"));
-        marketlist.add(new MarketBean(5,"国际皮革五金城"));
-        marketlist.add(new MarketBean(6,"红棉国际时装城"));
-        marketlist.add(new MarketBean(7,"华林国际"));
-        marketlist.add(new MarketBean(8,"清平医药中心"));
-        marketlist.add(new MarketBean(9,"万菱广场"));
-        marketlist.add(new MarketBean(10,"五洲城"));
+    public void loadMarket(List<AbstractDataBean> data) {
+        marketList.addAll(data);
         marketAdapter.notifyDataSetChanged();
-        listView.setSelection(0);
     }
 
+    public void setOnMarketListSelectedListener(OnMarketListSelectedListener onMarketListSelectedListener) {
+        this.onMarketListSelectedListener = onMarketListSelectedListener;
+    }
 
+    public interface OnMarketListSelectedListener{
+        void onSelected(int position);
+    }
 }

@@ -2,14 +2,12 @@ package UtilBean;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import java.util.ArrayList;
 
 import businessmonitor.com.example.newbusinessmonitor.AbstractDataBean;
 import businessmonitor.com.example.newbusinessmonitor.IChartView;
-import businessmonitor.com.example.newbusinessmonitor.LoginActivity;
 
 public class DataAgent {
     /**

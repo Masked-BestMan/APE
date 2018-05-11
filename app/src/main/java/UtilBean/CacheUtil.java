@@ -1,5 +1,6 @@
 package UtilBean;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -26,6 +27,7 @@ import businessmonitor.com.example.newbusinessmonitor.AbstractDataBean;
 
 public class CacheUtil {
 
+    @SuppressLint("StaticFieldLeak")
     private static CacheUtil cacheUtil = null;
     /**
      * 数据缓存技术的核心类，用于缓存所有下载好的数据，在程序内存达到设定值时会将最少最近使用的数据移除掉。
@@ -61,7 +63,7 @@ public class CacheUtil {
 
     public static CacheUtil getCacheUtilInstance(Context context) {
         if (cacheUtil == null)
-            cacheUtil = new CacheUtil(context);
+            cacheUtil = new CacheUtil(context.getApplicationContext());
         return cacheUtil;
     }
 
@@ -167,7 +169,7 @@ public class CacheUtil {
         return 1;
     }
 
-    private boolean isNetworkAvailable(Context context) {
+    public static boolean isNetworkAvailable(Context context) {
 
         ConnectivityManager manager = (ConnectivityManager) context
                 .getApplicationContext().getSystemService(
@@ -179,11 +181,7 @@ public class CacheUtil {
 
         NetworkInfo networkinfo = manager.getActiveNetworkInfo();
 
-        if (networkinfo == null || !networkinfo.isAvailable()) {
-            return false;
-        }
-
-        return true;
+        return networkinfo != null && networkinfo.isAvailable();
     }
 }
 

@@ -2,21 +2,27 @@ package showlea.chart;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -29,12 +35,14 @@ import businessmonitor.com.example.newbusinessmonitor.MyMarkerView;
 
 public class LeaseHoldFragment extends Fragment{
     private BarChart leaseHold_barChart;
+    private String label;
     private float[] datas;
     public LeaseHoldFragment(){ }
 
     @SuppressLint("ValidFragment")
-    public LeaseHoldFragment(float[] datas){
+    public LeaseHoldFragment(String label,float[] datas){
         this.datas=datas;
+        this.label=label;
     }
 
 
@@ -55,11 +63,22 @@ public class LeaseHoldFragment extends Fragment{
         leaseHold_barChart.setDrawBorders(false);
         leaseHold_barChart.setBorderColor(Color.WHITE);
         leaseHold_barChart.getLegend().setEnabled(false);  //不显示标签
-        leaseHold_barChart.getDescription().setEnabled(false);
+
         leaseHold_barChart.getAxisLeft().setTextColor(Color.WHITE);
         leaseHold_barChart.getAxisLeft().setAxisMinimum(0);
         leaseHold_barChart.getAxisLeft().setDrawGridLines(false);
         XAxis xAxis = leaseHold_barChart.getXAxis();//获取x轴
+
+        Description description=leaseHold_barChart.getDescription();
+        description.setTextColor(Color.WHITE);
+        description.setText(label);
+        Paint paint = new Paint();
+        Rect rect = new Rect();
+        paint.getTextBounds(label,0,1,rect);
+        DisplayMetrics metrics=getResources().getDisplayMetrics();
+        description.setPosition(metrics.widthPixels-rect.width()*2,rect.height()*4);
+        description.setTextSize(18.0f);
+
         xAxis.setAxisMinimum(0);
         xAxis.setAxisMaximum(12);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -82,7 +101,7 @@ public class LeaseHoldFragment extends Fragment{
     }
 
     private void setBarChartData() {
-        int barColor = getResources().getColor(R.color.depth_blue);
+        //int barColor = getResources().getColor(R.color.light_blue);
         ArrayList<BarEntry> entries = new ArrayList<>();
         for (int i = 0; i < datas.length; i++) {
             entries.add(new BarEntry(i+0.5f, datas[i]));
@@ -96,7 +115,7 @@ public class LeaseHoldFragment extends Fragment{
             leaseHold_barChart.notifyDataSetChanged();
         } else {
             set = new BarDataSet(entries, "");
-            set.setColor(barColor);
+            //set.setColor(barColor);
             set.setColors(new int[]{Color.rgb(255,241,226),Color.rgb(155,241,226),Color.rgb(255,211,226),
                     Color.rgb(255,24,226),Color.rgb(55,241,226),Color.rgb(25,211,226),
                     Color.rgb(55,221,226),Color.rgb(155,21,226),Color.rgb(215,11,226),

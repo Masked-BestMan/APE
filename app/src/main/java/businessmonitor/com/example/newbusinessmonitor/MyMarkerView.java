@@ -1,25 +1,12 @@
 package businessmonitor.com.example.newbusinessmonitor;
 
-/**
- * Created by Administrator on 2018/4/21.
- */
-
-
-
 import android.annotation.SuppressLint;
-        import android.content.Context;
-import android.util.Log;
+import android.content.Context;
 import android.widget.TextView;
-
-        import com.github.mikephil.charting.components.MarkerView;
-        import com.github.mikephil.charting.data.Entry;
-        import com.github.mikephil.charting.highlight.Highlight;
-        import com.github.mikephil.charting.utils.MPPointF;
-        import com.github.mikephil.charting.utils.Utils;
-
-import java.text.DecimalFormat;
-
-import businessmonitor.com.example.newbusinessmonitor.R;
+import com.github.mikephil.charting.components.MarkerView;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.utils.MPPointF;
 
 public class MyMarkerView extends MarkerView {
     private TextView tvContent;

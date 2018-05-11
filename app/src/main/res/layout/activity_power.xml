@@ -1,56 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bcc"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="showlea.chart.LeaseHoldActivity">
+
     <RelativeLayout
-        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+
         <Button
             android:id="@+id/backbutton"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@drawable/back2"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:background="@drawable/back2" />
+
         <TextView
+            android:id="@+id/power_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_margin="12dp"
             android:text="@string/activity_power_title_name"
-            android:textSize="30sp"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+
         <Button
+            android:id="@+id/market_list_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/market_list_button"
-            android:background="@drawable/cc"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:background="@drawable/cc" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/power_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/power_label"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/tab_selected"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/tab_selected"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="@color/tab_default" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/power_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/power_tab_layout"
+            android:paddingBottom="10dp" />
     </RelativeLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/power_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tool_bar"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/tab_selected"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/tab_selected"
-        app:tabTextColor="@color/tab_default"/>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/power_viewpager"
-        android:layout_below="@id/power_tab_layout"
+    <fragment
+        android:id="@+id/choose_market_fragment"
+        android:name="market.list.ChooseMarketFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="10dp"/>
+        android:layout_gravity="right"
+        tools:layout="@layout/choose_market" />
 
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

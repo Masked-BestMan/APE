@@ -199,7 +199,7 @@ public class BoomFragment extends Fragment{
         RadarDataSet radarDataSet = new RadarDataSet(pvalues,lineName);
         radarDataSet.setColor(color,0x90FFFFFF);
         radarDataSet.setDrawFilled(true);
-        radarDataSet.setFillColor(color&0xFFFFFFFF);
+        radarDataSet.setFillColor(color);
         radarDataSet.setLineWidth(2f);
         radarDataSet.setDrawHighlightCircleEnabled(true);
         radarDataSet.setHighlightCircleOuterRadius(2f);

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -30,11 +31,13 @@ import businessmonitor.com.example.newbusinessmonitor.R;
 public class EnvironmentFragment extends Fragment{
     private LineChart lineChart;
     private float[] datas;
+    private String label;
     public EnvironmentFragment(){ }
 
     @SuppressLint("ValidFragment")
-    public EnvironmentFragment(float[] datas){
+    public EnvironmentFragment(String label,float[] datas){
         this.datas=datas;
+        this.label=label;
     }
     @Nullable
     @Override
@@ -50,12 +53,15 @@ public class EnvironmentFragment extends Fragment{
 
     private void initChart() {
         lineChart.setBorderColor(Color.WHITE);
-        lineChart.getLegend().setEnabled(false);  //不显示标签
         lineChart.getDescription().setEnabled(false);
         lineChart.getAxisRight().setEnabled(false);    //右边的Y轴不显示
         lineChart.getAxisLeft().setTextColor(Color.WHITE);
         lineChart.getAxisLeft().setAxisMinimum(0);   //保证Y轴从0开始，不然会上移一点
         lineChart.getAxisLeft().setDrawGridLines(true);  //左边绘制网格
+
+        Legend legend=lineChart.getLegend();  //显示标签
+        legend.setTextSize(18.0f);
+        legend.setTextColor(Color.WHITE);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setAxisMaximum(11);
@@ -103,7 +109,7 @@ public class EnvironmentFragment extends Fragment{
             lineChart.getData().notifyDataChanged();
             lineChart.notifyDataSetChanged();
         } else {
-            set = new LineDataSet(values, "");   //代表一条线
+            set = new LineDataSet(values, label);   //代表一条线
 
 
             set.setColor(lineColor);

@@ -1,59 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bcc"
-    tools:context="showinv.chart.InnovationActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="showevn.chart.EnvironmentActivity">
 
-    <Button
-        android:layout_width="25dp"
-        android:layout_height="25sp"
-        android:id="@+id/backbutton"
-        android:background="@drawable/back2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"/>
-
-    <TextView
-        android:id="@+id/innovation_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="创新指数"
-        android:textColor="#ffffff"/>
-
-    <Button
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/market_list_button"
-        android:background="@drawable/cc"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"/>
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/innovation_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/innovation_label"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/tab_selected"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/tab_selected"
-        app:tabTextColor="@color/tab_default"/>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager_innovation"
-        android:layout_below="@id/innovation_tab_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"/>
+        android:fitsSystemWindows="true">
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/backbutton"
+            android:layout_width="25dp"
+            android:layout_height="25sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/back2" />
+
+        <TextView
+            android:id="@+id/innovation_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:gravity="center"
+            android:text="创新指数"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/market_list_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/cc" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/innovation_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/innovation_label"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/tab_selected"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/tab_selected"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="@color/tab_default" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_innovation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/innovation_tab_layout"
+            android:layout_marginBottom="20dp" />
+
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/choose_market_fragment"
+        android:name="market.list.ChooseMarketFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        tools:layout="@layout/choose_market" />
+
+</android.support.v4.widget.DrawerLayout>

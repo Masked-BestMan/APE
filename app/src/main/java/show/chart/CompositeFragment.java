@@ -23,10 +23,6 @@ import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 
 import java.util.ArrayList;
 
-import UtilBean.DBUtil;
-import UtilBean.DataAgent;
-import businessmonitor.com.example.newbusinessmonitor.AbstractDataBean;
-import businessmonitor.com.example.newbusinessmonitor.IChartView;
 import businessmonitor.com.example.newbusinessmonitor.MyMarkerView;
 import businessmonitor.com.example.newbusinessmonitor.R;
 
@@ -206,7 +202,7 @@ public class CompositeFragment extends Fragment{
         RadarDataSet radarDataSet = new RadarDataSet(pvalues,lineName);
         radarDataSet.setColor(color,0x90FFFFFF);
         radarDataSet.setDrawFilled(true);
-        radarDataSet.setFillColor(color&0xFFFFFFFF);
+        radarDataSet.setFillColor(color);
         radarDataSet.setLineWidth(2f);
         radarDataSet.setDrawHighlightCircleEnabled(true);
         radarDataSet.setHighlightCircleOuterRadius(2f);

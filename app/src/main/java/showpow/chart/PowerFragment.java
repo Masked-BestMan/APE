@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -30,12 +31,14 @@ import businessmonitor.com.example.newbusinessmonitor.MyMarkerView;
 public class PowerFragment extends Fragment{
     private BarChart barChart;
     private float[] datas;
+    private String label;
     public PowerFragment() {
     }
 
     @SuppressLint("ValidFragment")
-    public PowerFragment(float[] datas) {
+    public PowerFragment(String label,float[] datas) {
         this.datas=datas;
+        this.label=label;
     }
 
 
@@ -52,11 +55,16 @@ public class PowerFragment extends Fragment{
     private void initChart() {
         barChart.setDrawBorders(false);
         barChart.setBorderColor(Color.WHITE);
-        barChart.getLegend().setEnabled(false);  //不显示标签
         barChart.getDescription().setEnabled(false);
         barChart.getAxisLeft().setTextColor(Color.WHITE);
         barChart.getAxisLeft().setAxisMinimum(0);
         barChart.getAxisLeft().setDrawGridLines(false);
+
+
+        Legend legend=barChart.getLegend();  //显示标签
+        legend.setTextSize(18.0f);
+        legend.setTextColor(Color.WHITE);
+
         XAxis xAxis = barChart.getXAxis();//获取x轴
         xAxis.setAxisMinimum(0);
         xAxis.setAxisMaximum(12);
@@ -93,7 +101,7 @@ public class PowerFragment extends Fragment{
             barChart.getData().notifyDataChanged();
             barChart.notifyDataSetChanged();
         } else {
-            set = new BarDataSet(entries, "");
+            set = new BarDataSet(entries, label);
             set.setColor(barColor);
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();

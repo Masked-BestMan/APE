@@ -25,9 +25,9 @@ public class DBUtil {
     public final static String TABLE1 = "market_index";   //指数表
     public final static String TABLE2 = "market_data";    //数据表
     public final static String TABLE3 = "synthetic_index";  //合成指数表
-    public final static String TABLE4 = "user";   //用户表
-    public final static String TABLE5 = "market";   //商会表
-    public final static String TABLE6 = "market_management";    //商会管理表
+    private final static String TABLE4 = "user";   //用户表
+    final static String TABLE5 = "market";   //商会表
+    final static String TABLE6 = "market_management";    //商会管理表
     private static DBUtil dbUtil = null;
     private OnReceiveResultListener chartResultListener;
     private LinkedList<AsyncTask> list = new LinkedList<>();
@@ -117,12 +117,13 @@ public class DBUtil {
                     userInfoBean.setMarket_id(rs.getInt("market_id"));
                     userInfoBean.setMarket_name(rs.getString("market_name"));
                     userInfoBean.setVip(vip);
-                    boolean[] strings=new boolean[5];
+                    boolean[] strings=new boolean[6];
                     strings[0]=rs.getBoolean("innovation_permission");
                     strings[1]=rs.getBoolean("environmental_permission");
                     strings[2]=rs.getBoolean("fastBatch_permission");
                     strings[3]=rs.getBoolean("logistics_permission");
                     strings[4]=rs.getBoolean("leasehold_permission");
+                    strings[5]=true;    //商会管理表少了人力指权限字段
                     userInfoBean.setPermissions(strings);
                     as.add(userInfoBean);
                 }
@@ -153,46 +154,50 @@ public class DBUtil {
                 rs = stmt.executeQuery(sql);
                 while (rs.next()) {
                     if (isCancelled()) break;
-                    if (table.equals(TABLE1)) {
-                        MarketIndexBean marketIndexBean = new MarketIndexBean();
-                        marketIndexBean.setMark_id(rs.getInt("market_id"));
-                        marketIndexBean.setTime(rs.getString("time"));
-                        marketIndexBean.setMonth_index(rs.getString("month_index"));
-                        marketIndexBean.setInnovation_index(rs.getFloat("innovation_index"));
-                        marketIndexBean.setEnvironmental_index(rs.getFloat("environmental_index"));
-                        marketIndexBean.setFastBatch_index(rs.getFloat("fastBatch_index"));
-                        marketIndexBean.setLogistics_index(rs.getFloat("logistics_index"));
-                        marketIndexBean.setLeasehold_index(rs.getFloat("leasehold_index"));
-                        marketIndexBean.setHuman_index(rs.getFloat("human_index"));
-                        as.add(marketIndexBean);
-                    } else if(table.equals(TABLE2)){
-                        MarketDataBean marketDataBean = new MarketDataBean();
-                        marketDataBean.setMark_id(rs.getInt("market_id"));
-                        marketDataBean.setTime(rs.getString("time"));
-                        marketDataBean.setMonth_index(rs.getString("month"));
-                        marketDataBean.setRent(rs.getFloat("rent"));
-                        marketDataBean.setAdmission_rate(rs.getFloat("admission_rate"));
-                        marketDataBean.setManagement_fee(rs.getFloat("management_fee"));
-                        marketDataBean.setTransfer_fee(rs.getFloat("transfer_fee"));
-                        marketDataBean.setSecurity_num(rs.getInt("security_num"));
-                        marketDataBean.setVisitors_flowrate(rs.getInt("visitors_flowrate"));
-                        marketDataBean.setTable_rate(rs.getInt("table_rate"));
-                        marketDataBean.setSalary_avg(rs.getFloat("salary_avg"));
-                        marketDataBean.setEducation_level(rs.getFloat("education_level"));
-                        marketDataBean.setEmployee_average(rs.getFloat("employee_average"));
-                        marketDataBean.setRegistered_num(rs.getFloat("registered_num"));
-                        marketDataBean.setEcommerce_change(rs.getFloat("ecommerce_change"));
-                        marketDataBean.setCustomized_avg(rs.getFloat("customized_avg"));
-                        Log.d("TAble",marketDataBean.toString());
-                        as.add(marketDataBean);
-                    }else if (table.equals(TABLE3)){
-                        SyntheticIndexBean syntheticIndexBean=new SyntheticIndexBean();
-                        syntheticIndexBean.setMarket_id(rs.getInt("market_id"));
-                        syntheticIndexBean.setMonth_index(rs.getString("month_index"));
-                        syntheticIndexBean.setAntecedent_index(rs.getFloat("antecedent_index"));
-                        syntheticIndexBean.setUnanimous_index(rs.getFloat("unanimous_index"));
-                        syntheticIndexBean.setLag_index(rs.getFloat("lag_index"));
-                        as.add(syntheticIndexBean);
+                    switch (table) {
+                        case TABLE1:
+                            MarketIndexBean marketIndexBean = new MarketIndexBean();
+                            marketIndexBean.setMark_id(rs.getInt("market_id"));
+                            marketIndexBean.setTime(rs.getString("time"));
+                            marketIndexBean.setMonth_index(rs.getString("month_index"));
+                            marketIndexBean.setInnovation_index(rs.getFloat("innovation_index"));
+                            marketIndexBean.setEnvironmental_index(rs.getFloat("environmental_index"));
+                            marketIndexBean.setFastBatch_index(rs.getFloat("fastBatch_index"));
+                            marketIndexBean.setLogistics_index(rs.getFloat("logistics_index"));
+                            marketIndexBean.setLeasehold_index(rs.getFloat("leasehold_index"));
+                            marketIndexBean.setHuman_index(rs.getFloat("human_index"));
+                            as.add(marketIndexBean);
+                            break;
+                        case TABLE2:
+                            MarketDataBean marketDataBean = new MarketDataBean();
+                            marketDataBean.setMark_id(rs.getInt("market_id"));
+                            marketDataBean.setTime(rs.getString("time"));
+                            marketDataBean.setMonth_index(rs.getString("month"));
+                            marketDataBean.setRent(rs.getFloat("rent"));
+                            marketDataBean.setAdmission_rate(rs.getFloat("admission_rate"));
+                            marketDataBean.setManagement_fee(rs.getFloat("management_fee"));
+                            marketDataBean.setTransfer_fee(rs.getFloat("transfer_fee"));
+                            marketDataBean.setSecurity_num(rs.getInt("security_num"));
+                            marketDataBean.setVisitors_flowrate(rs.getInt("visitors_flowrate"));
+                            marketDataBean.setTable_rate(rs.getInt("table_rate"));
+                            marketDataBean.setSalary_avg(rs.getFloat("salary_avg"));
+                            marketDataBean.setEducation_level(rs.getFloat("education_level"));
+                            marketDataBean.setEmployee_average(rs.getFloat("employee_average"));
+                            marketDataBean.setRegistered_num(rs.getFloat("registered_num"));
+                            marketDataBean.setEcommerce_change(rs.getFloat("ecommerce_change"));
+                            marketDataBean.setCustomized_avg(rs.getFloat("customized_avg"));
+                            Log.d("TAble", marketDataBean.toString());
+                            as.add(marketDataBean);
+                            break;
+                        case TABLE3:
+                            SyntheticIndexBean syntheticIndexBean = new SyntheticIndexBean();
+                            syntheticIndexBean.setMarket_id(rs.getInt("market_id"));
+                            syntheticIndexBean.setMonth_index(rs.getString("month_index"));
+                            syntheticIndexBean.setAntecedent_index(rs.getFloat("antecedent_index"));
+                            syntheticIndexBean.setUnanimous_index(rs.getFloat("unanimous_index"));
+                            syntheticIndexBean.setLag_index(rs.getFloat("lag_index"));
+                            as.add(syntheticIndexBean);
+                            break;
                     }
                 }
                 return as;

@@ -34,11 +34,13 @@ import businessmonitor.com.example.newbusinessmonitor.MyMarkerView;
 public class InnovationFragment extends Fragment{
     private LineChart mLineChart;
     private float[] datas;
+    private String label;
     public InnovationFragment(){}
 
     @SuppressLint("ValidFragment")
-    public InnovationFragment(float[] datas){
+    public InnovationFragment(String label,float[] datas){
         this.datas=datas;
+        this.label=label;
     }
 
     @Nullable
@@ -81,20 +83,20 @@ public class InnovationFragment extends Fragment{
         mLineChart.animateXY(1000, 1000);
 
         //=========================设置图例=========================
-        Legend legend = mLineChart.getLegend();
-        legend.setEnabled(false);
+        Legend legend=mLineChart.getLegend();  //显示标签
+        legend.setTextSize(18.0f);
+        legend.setTextColor(Color.WHITE);
         //设置图例显示在chart那个位置 setPosition建议放弃使用了
         //设置垂直方向上还是下或中
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        //legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         //设置水平方向是左边还是右边或中
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        //legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         //设置所有图例位置排序方向
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        //legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         //设置图例的形状 有圆形、正方形、线
-        legend.setForm(Legend.LegendForm.SQUARE);
+        //legend.setForm(Legend.LegendForm.SQUARE);
         //是否支持自动换行 目前只支持BelowChartLeft, BelowChartRight, BelowChartCenter
-        legend.setWordWrapEnabled(true);
-        legend.setTextColor(Color.WHITE);
+        //legend.setWordWrapEnabled(true);
 
         //=======================设置X轴显示效果==================
         XAxis xAxis = mLineChart.getXAxis();
@@ -165,7 +167,7 @@ public class InnovationFragment extends Fragment{
         }
 
         List<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(SetLineDatas(pointValues,"",Color.rgb(0xdb,0x66, 0xae),Color.rgb(0xdb,0x66, 0xae)));
+        dataSets.add(SetLineDatas(pointValues,label,Color.rgb(0xdb,0x66, 0xae),Color.rgb(0xdb,0x66, 0xae)));
         //dataSets.add(SetLineDatas(pointValues2,"海珠区商业中心",Color.rgb(0x68,0x6f, 0xba),Color.rgb(0x68,0x6f, 0xba)));
         //dataSets.add(SetLineDatas(pointValues3,"天河购物中心",Color.rgb(0xe0,0x88, 0x86),Color.rgb(0xe0,0x88, 0x86)));
         //把要画的所有线(线的集合)添加到LineData里
@@ -179,7 +181,7 @@ public class InnovationFragment extends Fragment{
         //点构成的某条线
         LineDataSet lineDataSet = new LineDataSet(pvalues, lineName);
         //设置该线的颜色
-        lineDataSet.setColor(color&0xFFFFFFFF);
+        lineDataSet.setColor(color);
         //设置每个点的颜色
         lineDataSet.setCircleColor(circleColor);
         //设置该线的宽度
@@ -193,7 +195,7 @@ public class InnovationFragment extends Fragment{
         //设置线一面部分是否填充颜色
         lineDataSet.setDrawFilled(true);
         //设置填充的颜色
-        lineDataSet.setFillColor(color&0xFFFFFFFF);
+        lineDataSet.setFillColor(color);
         //设置是否显示点的坐标值
         lineDataSet.setDrawValues(false);
         return lineDataSet;
